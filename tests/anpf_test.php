@@ -1,6 +1,6 @@
 <?php
 
-require_once '/Users/aufi/Anpf/src/anpf.php';
+require_once '../src/anpf.php';
 
 class AnpfTest extends PHPUnit_Framework_TestCase
 {
@@ -33,7 +33,8 @@ class AnpfTest extends PHPUnit_Framework_TestCase
 	}
 	
 	function testUrl_for() {
-		
+		$url = $this->f->url_for('route_qwer_tqwertz');
+		$this->assertEquals($url, 'qwer/tqwertz');
 	}
 
 
