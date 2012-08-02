@@ -33,7 +33,7 @@ class Anpf {
 		return array('fname' => $this->fn_prefix.$fname, 'fparam' => $fparam);
 	}
 	
-	public function process_request($param) {
+	public function process_request($param = null) {
 		(isset($_SERVER['PATH_INFO'])) ? $fcall = $this->url_to_function($this->sec($_SERVER['PATH_INFO'])) : $fcall = $this->url_to_function('/index');
 		(function_exists($fcall['fname'])) ? $this->call($fcall['fname'], $fcall['fparam']) : $this->call($this->fn_prefix.'error_404');
 	}
@@ -64,7 +64,7 @@ class Anpf {
 		if (isset($part[0])) $path = $part[0];	//controller
 		if (isset($part[1])) $path .= '/'.$part[1];	//action
 		if (isset($param)) $path .= '/'.$param;	//id
-		return $this->url_prefix.$path;
+		return $this->url_prefix.'index.php/'.$path;
 	}
 	
 	public function redirect_to($url) {
