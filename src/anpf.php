@@ -2,7 +2,7 @@
 
 class Anpf {
 	
-	protected $url_prefix = '';
+	protected $url_prefix = './?q=';
 	protected $fn_prefix = 'route_';
 	protected $view_path = 'views/';
 	protected $background_fn = null;
@@ -11,7 +11,8 @@ class Anpf {
 	public function render($template, $d = null) {
 		if (is_array($this->background)) extract($this->background, EXTR_OVERWRITE);
 		if (is_array($d)) extract($d, EXTR_OVERWRITE);	//extract($d, EXTR_PREFIX_ALL, 'd');
-		echo "<!-- anpf -->\n";
+		$fn = $this->url_to_function($template);
+		echo "<!-- anpf (function name: '{$fn["fname"]}', view file name: '{$this->view_path}$template.html.php' -->\n";
 		require($this->view_path.'layout/header.html.php');
 		include($this->view_path.$template.'.html.php');
 		require($this->view_path.'layout/footer.html.php');
@@ -23,7 +24,7 @@ class Anpf {
 	}
 	
 	public function url_to_function($param) {
-		$param = substr($this->remove_prefix($this->url_prefix, $param), 1);	//remove / from param start
+		$param = $this->remove_prefix($this->url_prefix, $param);
 		$fname = '';
 		$fparam = '';
 		$part = explode('/', $param);
@@ -33,9 +34,9 @@ class Anpf {
 		return array('fname' => $this->fn_prefix.$fname, 'fparam' => $fparam);
 	}
 	
-	public function process_request($param = null) {
-		(isset($_SERVER['PATH_INFO'])) ? $fcall = $this->url_to_function($this->sec($_SERVER['PATH_INFO'])) : $fcall = $this->url_to_function('/index');
-		(function_exists($fcall['fname'])) ? $this->call($fcall['fname'], $fcall['fparam']) : $this->call($this->fn_prefix.'error_404');
+	public function process_request($query_string) {
+		$fcall = $this->url_to_function($this->sec($query_string));
+		(function_exists($fcall['fname'])) ? $this->call($fcall['fname'], $fcall['fparam']) : $this->call($this->fn_prefix.'error', 404);
 	}
 	
 	public function remove_prefix($prefix, $text) {
@@ -54,7 +55,7 @@ class Anpf {
 	
 	public function run() {
 		if (isset($this->background_fn)) $this->background = array_merge($this->background, call_user_func($this->background_fn));
-		$this->process_request();
+		$this->process_request((isset($_GET['q'])) ? $_GET['q'] : 'index');
 	}
 	
 	public function url_for($fname, $param = null) {
@@ -64,7 +65,7 @@ class Anpf {
 		if (isset($part[0])) $path = $part[0];	//controller
 		if (isset($part[1])) $path .= '/'.$part[1];	//action
 		if (isset($param)) $path .= '/'.$param;	//id
-		return $this->url_prefix.'index.php/'.$path;
+		return $this->url_prefix.$path;
 	}
 	
 	public function redirect_to($url) {

@@ -17,11 +17,10 @@ This framework does not provide this functionality, bud I can recommend project 
 
 ## Examples ##
 
-You can either look how to use **anpf** or use them as a skeleton for your own webapp.
+You can either look at examples how to use **anpf** or use them as a skeleton for your own webapp.
 
-*   1_static - the simplest example which handles requests into rendering action files an templates.
-*   2_forms - example with handling data from form, TODO
-*   3_blog - simple blog storing data in database (by notorm), TODO
+*   1_static - the simplest example which handles requests (and forms).
+*   2_blog - simple blog storing data in database (by notorm), TODO
 
 ## Note ##
 This "framework" is inspired by Ruby on Rails, so it is based on MVC architecture. Please, use Rails or Sinatra if you can choose between Ruby and PHP;-)
