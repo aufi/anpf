@@ -22,6 +22,11 @@ You can either look at examples how to use **anpf** or use them as a skeleton fo
 *   1_static - the simplest example which handles requests (and forms).
 *   2_blog - simple blog storing data in database (by notorm), TODO
 
+## Requirements ##
+
+* PHP 5.2 and above
+* optional: URL rewrite module in webserver (mod_rewrite in Apache HTTPD or try_files in nginx)
+
 ## Note ##
 This "framework" is inspired by Ruby on Rails, so it is based on MVC architecture. Please, use Rails or Sinatra if you can choose between Ruby and PHP;-)
 
