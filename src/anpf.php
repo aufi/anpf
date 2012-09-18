@@ -73,6 +73,11 @@ class Anpf {
 		exit(0);
 	}
 	
+	public function redirect_back() {
+		Header('Location: '.$this->background['ref']);
+		exit(0);
+	}
+	
 	public function sec($t) {
 		return htmlspecialchars(trim($t));
 	}
