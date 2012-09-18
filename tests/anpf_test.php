@@ -23,6 +23,10 @@ class AnpfTest extends PHPUnit_Framework_TestCase
 		$this->assertEquals($param, 'z');
 		$param = $this->f->remove_prefix('/myblog/somebody/', '/myblog/somebody/photos/list');
 		$this->assertEquals($param, 'photos/list');
+		$param = $this->f->remove_prefix('/myblog/somebody/?q=', '/myblog/somebody/?q=photos/list');
+		$this->assertEquals($param, 'photos/list');
+		$param = $this->f->remove_prefix('/myblog/somebody?q=', '/myblog/somebody?q=photos/list');
+		$this->assertEquals($param, 'photos/list');
 	}
 	
 	function testUrl_to_function() {
