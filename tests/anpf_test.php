@@ -33,7 +33,7 @@ class AnpfTest extends PHPUnit_Framework_TestCase
 	}
 	
 	function testUrl_for() {
-		$url = $this->f->url_for('route_posts_list');
+		$url = $this->f->url_for('posts_list');
 		$this->assertEquals($url, './?q=posts/list');
 	}
 

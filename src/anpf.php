@@ -60,7 +60,7 @@ class Anpf {
 	
 	public function url_for($fname, $param = null) {
 		$path = '';
-		$fname = preg_replace('/^' . $this->fn_prefix . '/', '', $fname);
+		//$fname = preg_replace('/^' . $this->fn_prefix . '/', '', $fname);
 		$part = explode('_', $fname, 2);
 		if (isset($part[0])) $path = $part[0];	//controller
 		if (isset($part[1])) $path .= '/'.$part[1];	//action
